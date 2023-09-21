@@ -3,7 +3,7 @@ import {
   addComment,
   deleteComment,
   getComments,
-} from "../controllers/comment.js";
+} from "../controllers/commentControllers.js";
 import { verifyToken } from "../verifyToken.js";
 const commentsRouter = express.Router();
 

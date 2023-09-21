@@ -8,7 +8,7 @@ import {
   search,
   sub,
   trend,
-} from "../controllers/video.js";
+} from "../controllers/videoControllers.js";
 import { verifyToken } from "../verifyToken.js";
 
 const videoRouter = express.Router();
