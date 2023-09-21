@@ -14,9 +14,23 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use("/auth", authRouter);
-app.use("/users", userRouter);
-app.use("/videos", videoRouter);
-app.use("/comments", commentsRouter);
+app.use("/user", userRouter);
+app.use("/video", videoRouter);
+app.use("/comment", commentsRouter);
+
+///// middleware error handling
+
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || "Something went wrong";
+
+  return res.status(status).json({
+    success: false,
+    status,
+    message,
+  });
+});
+
 /////
 mongoose
   .connect(process.env.DATA_BASE)

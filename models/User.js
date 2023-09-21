@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
     },
-    img: {
+    image: {
       type: String,
     },
     subscribers: {
@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema(
     },
     subscribedUsers: {
       type: [String],
+      //adding subcribed channel userids t this array
     },
     fromGoogle: {
       type: Boolean,

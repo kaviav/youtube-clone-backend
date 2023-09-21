@@ -7,8 +7,8 @@ import {
 import { verifyToken } from "../verifyToken.js";
 const commentsRouter = express.Router();
 
-commentsRouter.post("/", verifyToken, addComment);
-commentsRouter.delete("/:id", verifyToken, deleteComment);
-commentsRouter.get("/:videoId", getComments);
+commentsRouter.post("/add", verifyToken, addComment);
+commentsRouter.delete("/delete/:id", verifyToken, deleteComment);
+commentsRouter.get("/getall/:videoId", getComments);
 
 export default commentsRouter;

@@ -8,6 +8,8 @@ export const verifyToken = (req, res, next) => {
   jwt.verify(token, process.env.JWT, (err, user) => {
     if (err) return next(createError(403, "Token is not valid!"));
     req.user = user;
-    next()
+
+    // we r assaigning this JWT user object to our req.user. so we able to use this req.user in any api request.
+    next(); // calls next middleware in the app.js file, after calling the verityToken functn.
   });
 };

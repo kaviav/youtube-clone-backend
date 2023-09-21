@@ -4,6 +4,7 @@ import Video from "../models/Video.js";
 
 export const addComment = async (req, res, next) => {
   const newComment = new Comment({ ...req.body, userId: req.user.id });
+  //req.user.id, is the id we get after calling verifyToken middleware, so it checks and give the id back
   try {
     const savedComment = await newComment.save();
     res.status(200).send(savedComment);
@@ -17,6 +18,7 @@ export const deleteComment = async (req, res, next) => {
     const comment = await Comment.findById(res.params.id);
     const video = await Video.findById(res.params.id);
     if (req.user.id === comment.userId || req.user.id === video.userId) {
+      //conditions: delete comment by commented person|| delete comment by the owner of the video
       await Comment.findByIdAndDelete(req.params.id);
       res.status(200).json("The comment has been deleted.");
     } else {
@@ -29,6 +31,7 @@ export const deleteComment = async (req, res, next) => {
 
 export const getComments = async (req, res, next) => {
   try {
+    //get the comments of s particular  video
     const comments = await Comment.find({ videoId: req.params.videoId });
     res.status(200).json(comments);
   } catch (err) {

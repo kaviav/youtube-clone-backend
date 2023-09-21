@@ -10,11 +10,11 @@ const VideoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    desc: {
+    description: {
       type: String,
       required: true,
     },
-    imgUrl: {
+    imageUrl: {
       type: String,
       required: true,
     },
@@ -27,14 +27,17 @@ const VideoSchema = new mongoose.Schema(
       default: 0,
     },
     tags: {
+      //can give tags to the video, so tht one can sort videos on the basis of tags.
       type: [String],
       default: [],
     },
     likes: {
+      //add userIds to the array if any user is liked
       type: [String],
       default: [],
     },
     dislikes: {
+      //pull away userIds from the array whoevr disliked
       type: [String],
       default: [],
     },

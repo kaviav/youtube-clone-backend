@@ -4,6 +4,7 @@ import Video from "../models/Video.js";
 
 export const update = async (req, res, next) => {
   if (req.params.id === req.user.id) {
+    //req.user.id, is the id we get after calling verifyToken middleware, so it checks and give the id back
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
@@ -14,11 +15,14 @@ export const update = async (req, res, next) => {
       );
       res.status(200).json(updatedUser);
     } catch (err) {
-      next(err);
+      return res.status(500).json(err);
     }
   } else {
     return next(createError(403, "You can update only your account!"));
   }
+  // req.params.id: The ID of the user to be updated. req.user.id, is the id we get after calling verifyToken middleware, so it checks and give the id back, it should match with the id of the req.params.
+  // { $set: req.body }: This object specifies the fields to be updated. It uses the $set operator to update the user's data with the values in req.body.
+  // { new: true }: This option specifies that you want to return the updated user after the update operation. Without this option, the method would return the user's data as it was before the update.
 };
 
 export const deleteUser = async (req, res, next) => {
@@ -48,8 +52,10 @@ export const subscribe = async (req, res, next) => {
     await User.findByIdAndUpdate(req.user.id, {
       $push: { subscribedUsers: req.params.id },
     });
+    //req.user.id: current user id and req.params.id: subscribed channels id
     await User.findByIdAndUpdate(req.params.id, {
       $inc: { subscribers: 1 },
+      // find the channel and increases its subscribers number, since we subscribed them
     });
     res.status(200).json("Subscription successfull.");
   } catch (err) {
@@ -73,6 +79,7 @@ export const unsubscribe = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+  // the use of two try...catch blocks provides a more granular approach to error handling. The outer block handles overarching errors that affect the entire operation, while the inner blocks handle errors specific to individual database update operations.
 };
 
 export const like = async (req, res, next) => {
