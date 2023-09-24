@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
+      //dnt make required, cz
     },
     image: {
       type: String,
