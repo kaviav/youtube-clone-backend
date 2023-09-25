@@ -91,6 +91,7 @@ export const trend = async (req, res, next) => {
 
 //get subscribed videos
 export const sub = async (req, res, next) => {
+  console.log(req.user.id);
   try {
     const user = await User.findById(req.user.id);
     const subscribedChannels = user.subscribedUsers;
@@ -104,7 +105,7 @@ export const sub = async (req, res, next) => {
 
     res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt)); //flat method to remove nested array into single array. sort: to view the newest videos first.
   } catch (err) {
-    next(err);
+    res.status(500).json("subscription err");
   }
 };
 

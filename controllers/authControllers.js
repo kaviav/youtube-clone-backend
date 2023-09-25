@@ -34,6 +34,9 @@ export const signin = async (req, res, next) => {
     res
       .cookie("access_token", token, {
         httpOnly: true,
+        // secure: true, // Set to true if your server uses HTTPS
+        // sameSite: "none", // Adjust this based on your needs (strict, lax, none)
+        // // Other cookie options like 'maxAge', 'domain', etc. can be set here.
       })
       .status(200)
       .json(others);

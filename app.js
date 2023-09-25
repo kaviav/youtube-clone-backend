@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+// import cors from "cors";
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import videoRouter from "./routes/videoRouter.js";
@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 
 //middlewares
-
+// app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use("/auth", authRouter);
@@ -23,7 +23,7 @@ app.use("/comment", commentsRouter);
 ///// middleware error handling
 
 app.use((err, req, res, next) => {
-  const status = err.status || 5000;
+  const status = err.status || 500;
   const message = err.message || "Something went wrong";
 
   return res.status(status).json({
